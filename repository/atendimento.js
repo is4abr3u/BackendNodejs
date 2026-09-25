@@ -1,59 +1,56 @@
-import clientes from "../model/clientes.js"
+import Atendimentos from "../model/atendimento.js"
 
-class RepositoryClientes{
+class RepositoryAtendimentos{
 
-    async Create(nome, email, senha){
-        const clienteCreate = await clientes.create({nome, email, senha})
+    async Create(dia, hora, valor, status){
+        const atendimentoCreate = await Atendimentos.create({dia, hora, valor, status})
 
-        return clienteCreate
+        return atendimentoCreate
     
     }
 
     async FindAll(){
-        const clienteFindAll = await clientes.findAll()
+        const atendimentoFindAll = await Atendimentos.findAll()
 
-        return clienteFindAll
+        return atendimentoFindAll
     
     }
 
     async FindByPk(id){
-        const clienteFindByPk = await clientes.findByPk(id)
+        const atendimentoFindByPk = await Atendimentos.findByPk(id)
 
-        return clienteFindByPk
+        return atendimentoFindByPk
     
     }
 
-     async Update(id, nome, email, senha){
-        const clienteUpdate = await clientes.findByPk(id)
+     async Update(id, dia, hora, valor, status){
+        const atendimentoUpdate = await Atendimentos.findByPk(id)
 
-        if(!clienteUpdate){
-            throw new Error("Cliente não encontrado")
+        if(!atendimentoUpdate){
+            throw new Error("Atendimento não encontrado")
         }
 
-        usuarioAlterar.nome = nome || usuarioAlterar.nome
-        usuarioAlterar.email = email || usuarioAlterar.email
-        usuarioAlterar.senha = senha || usuarioAlterar.senha
+        atendimentoUpdate.dia = dia || atendimentoUpdate.dia
+        atendimentoUpdate.hora = hora || atendimentoUpdate.hora
+        atendimentoUpdate.valor = valor || atendimentoUpdate.valor
+        atendimentoUpdate.status = status || atendimentoUpdate.status
 
-        await clienteUpdate.save()
+        await atendimentoUpdate.save()
     
     }
 
     async Delete(id){
-        const clienteDelete = await clientes.findByPk(id)
+        const atendimentoDelete = await Atendimentos.findByPk(id)
 
-        if(!clienteDelete){
-            throw new Error("Cliente não encontrado")
+        if(!atendimentoDelete){
+            throw new Error("Atendimento não encontrado")
         }
-        await clienteDelete.destroy()
+        await atendimentoDelete.destroy()
 
-        return clienteDelete
+        return atendimentoDelete
     
-    }
-
-    async FindByEmail(email){
-        return usuarios.findOne({ where: {email}})
     }
 
 }
 
-export default new RepositoryClientes()
+export default new RepositoryAtendimentos()

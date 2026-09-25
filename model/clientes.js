@@ -1,4 +1,3 @@
-import clientes from "../repository/clientes.js"
 import database from "../config/database.js"
 
 class Clientes{

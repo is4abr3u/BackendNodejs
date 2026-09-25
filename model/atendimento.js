@@ -1,31 +1,37 @@
-import clientes from "../repository/clientes.js"
 import database from "../config/database.js"
 
-class Clientes{
+class Atendimentos{
     constructor(){
-        this.model = database.db.define("clientes",{
+        this.model = database.db.define("Atendimentos",{
+
             id: {
                 type: database.db. Sequelize.INTEGER,
                 primaryKey: true, 
                 autoincrement: true
             }, 
 
-            nome:{
-                type: database.db. Sequelize.STRING,
+            dia:{
+                type: database.db. Sequelize.DATE,
             },
 
-            email:{
-                type: database.db. Sequelize.STRING,
+            hora:{
+                type: database.db. Sequelize.TIME,
                 unique: true
             },
 
-            senha:{
+            valor:{
+                type: database.db. Sequelize.DECIMAL,
+            },
+
+            status:{
                 type: database.db. Sequelize.STRING,
             }
+
+
 
         })
        
     }
 }
 
-export default new Clientes().model
+export default new Atendimentos().model

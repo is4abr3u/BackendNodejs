@@ -51,7 +51,7 @@ class ServiceClientes{
 
         }
 
-        const cliente = await RepositoryClientes.Delete(id)
+        const clientedeletado = await RepositoryClientes.Delete(id)
 
         return id
     }

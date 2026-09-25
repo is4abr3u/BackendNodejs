@@ -1,23 +1,19 @@
-import RepositoryClientes from "../repository/clientes.js"
-import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
+import RepositoryAtendimentos from "../repository/atendimento.js"
 
-const segredo = "is4Abr3u"
-
-class ServiceClientes{
-    async Criar(nome, email, senha){
-        if(!nome|| !email|| !senha){
+class ServiceAtendimentos{
+    async Criar(dia, hora, valor, status){
+        if(!dia || !hora || !valor || !status){
             throw new Error("Favor informar todos os dados")
 
         }
 
-        const cliente = await RepositoryClientes.Create(nome, email, senha)
+        const atendimento = await RepositoryAtendimentos.Create(dia, hora, valor, status)
 
-        return cliente
+        return atendimento
     }
 
     async Buscar(){
-        return await RepositoryClientes.FindAll()
+        return await RepositoryAtendimentos.FindAll()
     }
 
     async Detalhe(id){
@@ -26,23 +22,23 @@ class ServiceClientes{
 
         }
 
-        const cliente = await RepositoryClientes.FindByPk(id)
-        if(!cliente){
-            throw new Error("Id do cliente não encontrado")
+        const atendimento = await RepositoryAtendimentos.FindByPk(id)
+        if(!atendimento){
+            throw new Error("Id do atendimento não encontrado")
         }
 
-        return cliente
+        return atendimento
     }
 
-    async Alterar(id, nome, email, senha){
+    async Alterar(id, dia, hora, valor, status){
 
-        if(!id || !nome || !email|| !senha){
+        if(!id || !dia || !hora || !valor || !status){
             throw new Error("Favor informar os dados")
 
         }
 
-        const clienteAlterado = await RepositoryClientes.Update(id, nome, email, senha)
-        return clienteAlterado
+        const atendimentoAlterado = await RepositoryAtendimentos.Update(id, dia, hora, valor, status)
+        return atendimentoAlterado
     }
 
     async Deletar(id){
@@ -51,42 +47,10 @@ class ServiceClientes{
 
         }
 
-        const cliente = await RepositoryClientes.Delete(id)
+        const atendimentodeletado = await RepositoryAtendimentos.Delete(id)
 
         return id
     }
-
-     async Login( email, senha) {
-        if (!email || !senha) {
-            throw new Error("Email e senha inválido")
-        }
-
-        const cliente = await RepositoryClientes.FindByEmail(email)
-
-        if (!cliente) {
-            throw new Error("Email e senha inválido")
-        }
-
-        if (
-            !(await bcrypt.compare(String(senha), cliente.senha))
-        ){
-            throw new Error("Email e senha inválido")
-        }
-
-        return jwt.sign(
-            {id: cliente.id, email}, 
-            segredo, 
-            {expiresIn: 60 * 60} 
-        )
-    }
-
-
-
-
-
-
-
-
 }
 
-export default new ServiceClientes()
+export default new ServiceAtendimentos()

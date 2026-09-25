@@ -1,12 +1,12 @@
-import ServiceClientes from "../service/clientes.js"
+import ServiceAtendimentos from "../service/atendimento.js"
 
-class ControllerClientes{
+class ControllerAtendimento{
   async Criar(req, res){
     try{
-        const {nome, email, senha} = req.body 
-        await ServiceClientes.Criar(nome, email, senha)
+        const {dia, hora, valor, status} = req.body 
+        await ServiceAtendimentos.Criar(dia, hora, valor, status)
 
-        res.status(201).send({mensagem:"Cliente cadastrado com sucesso"})   
+        res.status(201).send({mensagem:"Atendimento cadastrado com sucesso"})   
     } catch (error){
         res.status(500).send({ mensagem: error.message})
     }
@@ -14,8 +14,8 @@ class ControllerClientes{
 
   async Buscar(_, res){
     try{
-        const clientes = await ServiceClientes.Buscar()
-        res.send({mensagem: clientes})
+        const atendimento = await ServiceAtendimentos.Buscar()
+        res.send({mensagem: atendimento})
         
     } catch (error){
         res.status(500).send({ mensagem: error.message})
@@ -25,8 +25,8 @@ class ControllerClientes{
   async Detalhe(req, res){
     try{
         const id = req.params.id
-        const cliente = await ServiceClientes.Detalhe(id)
-        res.status(200).send({mensagem: cliente})
+        const atendimento = await ServiceAtendimentos.Detalhe(id)
+        res.status(200).send({mensagem: atendimento})
         
     } catch (error){
         res.status(500).send({ mensagem: error.message})
@@ -36,10 +36,10 @@ class ControllerClientes{
   async Alterar(req, res){
     try{
         const id = req.params.id
-        const {nome, email, senha} = req.body
-        await ServiceClientes.Alterar(id,nome, email, senha)
+        const {dia, hora, valor, status} = req.body
+        await ServiceAtendimentos.Alterar(id, dia, hora, valor, status)
 
-        res.status(201).send({mensagem: "Cliente alterado com sucesso"})
+        res.status(201).send({mensagem: "Atendimento alterado com sucesso"})
         
     } catch (error){
         res.status(500).send({ mensagem: error.message})
@@ -49,9 +49,9 @@ class ControllerClientes{
    async Deletar(req, res){
     try{
         const id = req.params.id
-        await ServiceClientes.Deletar(id)
+        await ServiceAtendimentos.Deletar(id)
 
-        res.status(204).send({mensagem: "Cliente deletado com sucesso"})
+        res.status(204).send({mensagem: "Atendimento deletado com sucesso"})
         
     } catch (error){
         res.status(500).send({ mensagem: error.message})
@@ -65,4 +65,4 @@ class ControllerClientes{
 
 }
 
-export default new ControllerClientes()
+export default new ControllerAtendimento()

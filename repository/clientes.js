@@ -30,9 +30,9 @@ class RepositoryClientes{
             throw new Error("Cliente não encontrado")
         }
 
-        usuarioAlterar.nome = nome || usuarioAlterar.nome
-        usuarioAlterar.email = email || usuarioAlterar.email
-        usuarioAlterar.senha = senha || usuarioAlterar.senha
+        clienteUpdate.nome = nome || clienteUpdate.nome
+        clienteUpdate.email = email || clienteUpdate.email
+        clienteUpdate.senha = senha || clienteUpdate.senha
 
         await clienteUpdate.save()
     
